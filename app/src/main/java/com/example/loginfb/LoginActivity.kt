@@ -26,6 +26,9 @@ import com.google.firebase.ktx.Firebase
 8º creamos proyecto en github: VSC
 
 
+---------mejoramos el login-------------
+
+
 
  */
 
@@ -77,6 +80,8 @@ class LoginActivity : AppCompatActivity() {
                             showAlert()// mensaje de alerta
                         }
                     }
+            }else{
+                showRellenar()
             }
 
         }//--------------------------------------------------------
@@ -96,10 +101,25 @@ class LoginActivity : AppCompatActivity() {
                             showAlert()// mensaje de alerta
                         }
                     }
+            }else{
+                showRellenar()
             }
         }
 
 
+
+    }
+
+    private fun showRellenar() {
+
+        //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo
+        val builder= AlertDialog.Builder(this)// creamos un cuadro de dialogo
+
+        builder.setTitle("ERROR DE AUTENTICACION!!")
+        builder.setMessage("Deves de rellenar todos los campòs correctamente.")
+        builder.setPositiveButton("aceptar",null)
+        val dialog: AlertDialog =builder.create()
+        dialog.show()
 
     }
 
