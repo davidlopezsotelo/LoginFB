@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "542159387434",
+    "project_id": "loginfb-a53b9",
+    "storage_bucket": "loginfb-a53b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542159387434:android:611f5908a06049a0b47c53",
+        "android_client_info": {
+          "package_name": "com.example.loginfb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542159387434-ujjvrvukfngj86grpjs9thg8g21i22rv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAHzFGUs6olBy4Twi0nOQCTaRaLGqoZ2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542159387434-ujjvrvukfngj86grpjs9thg8g21i22rv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
