@@ -18,9 +18,9 @@ class MenuPrincipal : AppCompatActivity() {
 
 
     }
-
+    // creamos un cuadro de dialogo-----------------------------------------------------------------
      private fun mensaje() {
-        val builder = AlertDialog.Builder(this)// creamos un cuadro de dialogo
+        val builder = AlertDialog.Builder(this)
 
         builder.setTitle("Hola, Usuario")
         builder.setMessage("Te has identificado correctamente.")
@@ -28,17 +28,16 @@ class MenuPrincipal : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
+
+    // funcion setup()------------------------------------------------------------------------------
     private fun setup(){
-
-        val BotonSalir=findViewById<Button>(R.id.button_salir)
-
         title="Menu Principal"
 
+        val BotonSalir=findViewById<Button>(R.id.button_salir3)
 
         BotonSalir.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
             onBackPressed()
         }
-
     }
 }

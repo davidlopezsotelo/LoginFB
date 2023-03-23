@@ -76,9 +76,36 @@
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        app:layout_constraintVertical_bias="0.258" />
+        app:layout_constraintVertical_bias="0.153" />
+
+    <Button
+        android:id="@+id/buttonAtrasLog"
+        android:layout_width="175dp"
+        android:layout_height="54dp"
+        android:backgroundTint="#FF018786"
+        android:text="LOGIN"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAceptar"
+        app:layout_constraintVertical_bias="0.121" />
+
+    <Button
+        android:id="@+id/buttonSalir2"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#9F9D9D"
+        android:onClick="ejecutar_BotonSalir"
+        android:text="Salir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAtrasLog"
+        app:layout_constraintVertical_bias="0.27" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

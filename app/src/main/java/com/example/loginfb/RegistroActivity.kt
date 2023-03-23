@@ -8,6 +8,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 
+@Suppress("DEPRECATION")
 class RegistroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,12 +16,14 @@ class RegistroActivity : AppCompatActivity() {
 
         setup()
     }
-
+// funcion setup()----------------------------------------------------------------------------------
     private fun setup(){
 
         val textEmail = findViewById<EditText>(R.id.email)
         val textContraseña = findViewById<EditText>(R.id.contraseña)
         val botonAceptar=findViewById<Button>(R.id.buttonAceptar)
+        val botonLogin=findViewById<Button>(R.id.buttonAtrasLog)
+        val botonSalir=findViewById<Button>(R.id.buttonSalir2)
 
         //Funciones de boton REGISTRARSE
         botonAceptar.setOnClickListener {
@@ -33,23 +36,39 @@ class RegistroActivity : AppCompatActivity() {
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
                             showRegistro()
-                            showLogin()
+
                         } else {
                             showAlert()// mensaje de alerta
                         }
+
                     }
             } else {
                 showRellenar()
             }
-        }
-
         }//--------------------------------------------------------
 
+        // funciones del boton LOGIN.........
 
+        botonLogin.setOnClickListener(){
+            val logIntent=Intent(this,LoginActivity::class.java)
+            startActivity(logIntent)
+            finish()
+        }
+
+        //Boton Salir
+
+        botonSalir.setOnClickListener(){
+            FirebaseAuth.getInstance().signOut()
+            onBackPressed()
+            finish()
+
+        }
+
+    }// Fin setup()---------------------------------------------------------------------------------
+
+
+    //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo----------
       private  fun showRellenar() {
-
-            //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo
-
             val builder= AlertDialog.Builder(this)// creamos un cuadro de dialogo
 
             builder.setTitle("ERROR DE AUTENTICACION!!")
@@ -57,13 +76,12 @@ class RegistroActivity : AppCompatActivity() {
             builder.setPositiveButton("aceptar",null)
             val dialog: AlertDialog =builder.create()
             dialog.show()
-
         }
 
+    //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo----------
        private fun showRegistro() {
-            //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo
-            val builder= AlertDialog.Builder(this)// creamos un cuadro de dialogo
 
+            val builder= AlertDialog.Builder(this)// creamos un cuadro de dialogo
             builder.setTitle("Registro")
             builder.setMessage("Te has registrado correctamente.")
             builder.setPositiveButton("aceptar",null)
@@ -71,7 +89,7 @@ class RegistroActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo
+    //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo---------
        private fun showAlert(){
 
             val builder= AlertDialog.Builder(this)// creamos un cuadro de dialogo
@@ -82,16 +100,5 @@ class RegistroActivity : AppCompatActivity() {
             val dialog: AlertDialog =builder.create()
             dialog.show()
         }//ff
-
-        //creamos una funcion que hara[...]cuando ingresemos en ka aplicacion
-
-        private fun showLogin(){
-
-            val homeIntent = Intent(this,LoginActivity::class.java).apply {
-
-            }
-            startActivity(homeIntent)
-        }
-
 
     }

@@ -11,30 +11,24 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 
-
 /* CREACION DE PROYECTO PARA LOGEARSE CON FIREBASE
-
 1º creamos proyecto en firebase con el mismo nombre
 2º Agregamos Firebase al proyecto utilizando la consola de Firebase (Tools/Firebase)
      (añadimos primero Analitics y declaramos e inicializamos este.
      despues authentication(custom) y hacemos lo mismo)
 3º habilitamos correo electronico en la consola de Firebase
 4º creamos el bundle (https://www.youtube.com/watch?v=sCPpzqWsDvI)
-5º creamos la funcion setup(), para autentication
-6º cambiamos el nombre de la activity por LoginActivity
+5º creamos la funcion setup(), para la funcionalidad
+6º cambiamos el nombre de la activity por LoginActivity y creamos un Registro activity
 7º Creamos la Activity , MenuPrincipal, la que dara acceso a nuestra app
 8º creamos proyecto en github: VSC
-
-
----------mejoramos el login-------------
-
-
-
  */
+
 
 //creamos variable analytics
 private lateinit var analytics: FirebaseAnalytics
 
+@Suppress("DEPRECATION")
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
         bundle.putString("mensaje", "Integracion de Firebase completa")
         analityc.logEvent("InitScreen", bundle)
 
-        //setup
+        //setup, que dará funcionalidad
         setup()
 
     }
@@ -61,8 +55,11 @@ class LoginActivity : AppCompatActivity() {
 
         val botonIniciar = findViewById<Button>(R.id.button_Iniciar)
         val botonregistrar=findViewById<Button>(R.id.button_Registrar)
+        val botonSalir=findViewById<Button>(R.id.buttonSalir)
         val textEmail = findViewById<EditText>(R.id.editTextEmail)
         val textContraseña = findViewById<EditText>(R.id.editTextContraseña)
+
+        // Funcionalidad del boton REGISTRAR, que nos manda al registroActivity
 
         botonregistrar.setOnClickListener{
             val i=Intent(this,RegistroActivity::class.java)
@@ -70,41 +67,18 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-        //Funciones de boton REGISTRARSE
-       /* botonregistrar.setOnClickListener {
-            if (textEmail.text.isNotEmpty() && textContraseña.text.isNotEmpty()) {
-                FirebaseAuth.getInstance()
-                    .createUserWithEmailAndPassword(
-                        textEmail.text.toString(),
-                        textContraseña.text.toString()
-                    )
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            showRegistro()
-                        } else {
-                            showAlert()// mensaje de alerta
-                        }
-                    }
-            }else{
-                showRellenar()
-            }
-
-        }//--------------------------------------------------------
-        */
-
-
         //funciones de boton INICIAR SESION--------------------------------------------
 
         botonIniciar.setOnClickListener{
-            if (textEmail.text.isNotEmpty() && textContraseña.text.isNotEmpty()) {
+            if (textEmail.text.isNotEmpty() && textContraseña.text.isNotEmpty()) {//si no estan vacios....
+
+                //acccedemos a los metodos de autenticacion de Firebase
                 FirebaseAuth.getInstance()
-                    .signInWithEmailAndPassword(// cambiar la funcion para sing, el resto es igual que el otro boton
-                        textEmail.text.toString(),
-                        textContraseña.text.toString()
+                    .signInWithEmailAndPassword(textEmail.text.toString(),textContraseña.text.toString()
                     )
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            showHome() //lo qeu quieres que haga...
+                            showHome() //lo que quieres que haga...
                         } else {
                             showAlert()// mensaje de alerta
                         }
@@ -112,28 +86,33 @@ class LoginActivity : AppCompatActivity() {
             }else{
                 showRellenar()
             }
+        }// fin boton INICIAR
+
+        //Boton SALIR
+        botonSalir.setOnClickListener(){
+            FirebaseAuth.getInstance().signOut()
+            onBackPressed()
+            finish()
         }
-
-
 
     }
 
+    //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo--------------------
     private fun showRellenar() {
-
-        //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo
 
         val builder= AlertDialog.Builder(this)// creamos un cuadro de dialogo
 
         builder.setTitle("ERROR DE AUTENTICACION!!")
-        builder.setMessage("Deves de rellenar todos los campòs correctamente.")
+        builder.setMessage("Deves de rellenar todos los campos correctamente.")
         builder.setPositiveButton("aceptar",null)
         val dialog: AlertDialog =builder.create()
         dialog.show()
 
     }
 
+    //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo-----------------------
     private fun showRegistro() {
-        //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo
+
         val builder= AlertDialog.Builder(this)// creamos un cuadro de dialogo
 
         builder.setTitle("Registro")
@@ -143,7 +122,7 @@ class LoginActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo
+    //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo--------------------------
     private fun showAlert(){
 
         val builder= AlertDialog.Builder(this)// creamos un cuadro de dialogo
@@ -151,17 +130,19 @@ class LoginActivity : AppCompatActivity() {
         builder.setTitle("Error")
         builder.setMessage("Se ha producido un error autenticando al usuario.")
         builder.setPositiveButton("aceptar",null)
+
         val dialog: AlertDialog =builder.create()
         dialog.show()
-    }//ff
+    }
 
-    //creamos una funcion que hara[...]cuando ingresemos en ka aplicacion
 
+    //creamos una funcion que dará acceso a la aplicacion-------------------------------------------------------
     private fun showHome(){
 
-        val homeIntent = Intent(this,MenuPrincipal::class.java).apply {
+        val i = Intent(this,MenuPrincipal::class.java).apply {
 
         }
-        startActivity(homeIntent)
+        startActivity(i)
     }
-}
+
+}//END class
