@@ -64,9 +64,14 @@ class LoginActivity : AppCompatActivity() {
         val textEmail = findViewById<EditText>(R.id.editTextEmail)
         val textContraseña = findViewById<EditText>(R.id.editTextContraseña)
 
+        botonregistrar.setOnClickListener{
+            val i=Intent(this,RegistroActivity::class.java)
+            startActivity(i)
+        }
+
 
         //Funciones de boton REGISTRARSE
-        botonregistrar.setOnClickListener {
+       /* botonregistrar.setOnClickListener {
             if (textEmail.text.isNotEmpty() && textContraseña.text.isNotEmpty()) {
                 FirebaseAuth.getInstance()
                     .createUserWithEmailAndPassword(
@@ -85,8 +90,11 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }//--------------------------------------------------------
+        */
 
-        //funciones de boton INICIAR
+
+        //funciones de boton INICIAR SESION--------------------------------------------
+
         botonIniciar.setOnClickListener{
             if (textEmail.text.isNotEmpty() && textContraseña.text.isNotEmpty()) {
                 FirebaseAuth.getInstance()
@@ -113,6 +121,7 @@ class LoginActivity : AppCompatActivity() {
     private fun showRellenar() {
 
         //creamos una funcion que mostrara un  mensaje de alerta mediante un cuadro de dialogo
+
         val builder= AlertDialog.Builder(this)// creamos un cuadro de dialogo
 
         builder.setTitle("ERROR DE AUTENTICACION!!")
@@ -151,10 +160,6 @@ class LoginActivity : AppCompatActivity() {
     private fun showHome(){
 
         val homeIntent = Intent(this,MenuPrincipal::class.java).apply {
-
-            //creamos un cuadro de dialogo que nos diga que estamos dentro de la app
-
-
 
         }
         startActivity(homeIntent)
